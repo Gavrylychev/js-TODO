@@ -1,15 +1,5 @@
-function createLi(arrStr){
-  var ulElem = document.createElement("ul");
-
-  for(var i = 0; i < arrStr.length; i++){
-    var liElem = document.createElement("li");
-    ulElem.appendChild(liElem);
-    liElem.innerHTML = arrStr[i];
-
-  }
-  document.body.appendChild(ulElem);
-}
-
+var ulElem = document.createElement("ul");
+document.body.appendChild(ulElem);
 var inputElem = document.createElement("input");
 inputElem.setAttribute("type", "text");
 document.body.appendChild(inputElem);
@@ -17,31 +7,41 @@ var addButton = document.createElement("button");
 addButton.setAttribute("type", "button");
 addButton.innerText = "Add text";
 document.body.appendChild(addButton);
-
-
 var inputTextValue = "";
+
+function createLi(arrStr){
+  for(var i = 0; i < arrStr.length; i++){
+    var liElem = document.createElement("li");
+    ulElem.appendChild(liElem);
+    liElem.innerHTML = arrStr[i];
+  }
+}
+createLi(["first", "second", "third"]);
 
 function valueOfInput(){
   inputElem.addEventListener("keypress", function(event){
     inputTextValue = event.target.value;
       if(event.keyCode === 13){
-         createLi();
+        var liElem = document.createElement("li");
+        liElem.innerHTML = inputTextValue;
+        ulElem.appendChild(liElem);
+        this.value = "";
       }
   });
-
 }
 valueOfInput();
 
 function addTextToLi(){
-  addButton.addEventListener("click", function(){
-
+  addButton.addEventListener("click", function(event){
+    inputTextValue = event.target.value;
+    if(event){
+      var liElem = document.createElement("li");
+      liElem.innerHTML = inputTextValue;
+      ulElem.appendChild(liElem);
+      this.value = "";
+    }else{
+      return "Plz add text in input field";
+    }
   });
 }
 addTextToLi();
-// createLi(["first", "second", "third", "sadf", "asdf safd"]);
-// Давай по пунктам:
-// 1. Создать и инпут и кнопку ты точно можешь.
-// 2. Добавить им id и в js записать их в переменные:  var input = document.getElementById('id')
-// 3. Потом погуглить, как получить значение введенное в инпут.
-// 4. вызвать на кнопке addEventListener
-// 5. взять значение из п.3, создать li с этим текстом и добавить его в список
