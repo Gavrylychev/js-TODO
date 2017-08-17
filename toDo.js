@@ -32,16 +32,16 @@ function valueOfInput(){
 valueOfInput();
 
 function addTextToLi(){
-  addButton.addEventListener("click", function(event){
-    inputTextValue = event.target.value;
-    if(event){
-      var liElem = document.createElement("li");
-      liElem.innerHTML = inputTextValue;
-      ulElem.appendChild(liElem);
-      this.value = "";
-    }else{
-      return "Plz add text in input field";
-    }
+  addButton.addEventListener("click", function(){
+    inputTextValue = inputElem.value;
+      if(inputElem.value === ""){
+        alert("add some text in input");
+      }else{
+        var liElem = document.createElement("li");
+        liElem.innerHTML = inputTextValue;
+        ulElem.appendChild(liElem);
+        inputElem.value = "";
+      }
   });
 }
 addTextToLi();
