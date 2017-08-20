@@ -13,10 +13,10 @@ var deleteBtn = document.getElementById('deleteBtn');
 deleteBtn.addEventListener('click', deleteSelectedLi);
 
 function deleteSelectedLi(){
-  var arrLis = document.getElementsByTagName("li");
-  for(var i = 0; i < arrLis; i++){
-    console.log(arrLis);
-      ulElem.removeChild('coloredLi');
+  var arrLis = document.querySelectorAll("li");
+  for(var i = 0; i < arrLis.length; i++){
+    // arrLis[i].classList.remove("coloredLi");
+      arrLis[i].removeChild('coloredLi');
     //   if(event.keyCode === 46){
     // }
   }
