@@ -9,24 +9,8 @@ var ulElem = document.createElement("ul");
 document.body.appendChild(ulElem);
 var inputTextValue = "";
 var deleteBtn = document.getElementById('deleteBtn');
-
-deleteBtn.addEventListener('click', deleteSelectedLi);
-
-function deleteSelectedLi(){
-  var arrLis = document.querySelectorAll("li");
-  for(var i = 0; i < arrLis.length; i++){
-    // arrLis[i].classList.remove("coloredLi");
-      ulElem.remove(arrLis[i].classList.contains('coloredLi'));
-    //   if(event.keyCode === 46){
-    // }
-  }
-}
-
-ulElem.addEventListener('click', selectLiWithCtrl);
-
-function selectLiWithCtrl(){
-
-}
+var selectedLi = [];
+var isCtrlPressed = false;
 
 function createLi(arrStr){
   for(var i = 0; i < arrStr.length; i++){
@@ -41,18 +25,22 @@ ulElem.addEventListener("click", colorLi);
 
 function colorLi(){
   if (event.target.tagName !== 'LI') return;
-  var arrLi = document.querySelectorAll('li');
-  if(event.target.classList.contains("coloredLi")){
-    event.target.classList.remove("coloredLi");
-  }else{
-    for(var i = 0; i < arrLi.length; i++){
-      arrLi[i].classList.remove("coloredLi");
-  }
-  event.target.classList.toggle("coloredLi");
+  if ( isCtrlPressed ) {
+    event.target.classList.add("coloredLi");
+    selectedLi.push( event.target );
+  } else {
+      var arrLi = document.querySelectorAll('li');
+      selectedLi = [ event.target ];
+      if(event.target.classList.contains("coloredLi")){
+        event.target.classList.remove("coloredLi");
+      }else{
+        for(var i = 0; i < arrLi.length; i++){
+          arrLi[i].classList.remove("coloredLi");
+      }
+    event.target.classList.toggle("coloredLi");
+      }
   }
 }
-
-
 
 inputElem.addEventListener("keypress", function(event){
   inputTextValue = event.target.value;
@@ -75,3 +63,23 @@ addButton.addEventListener("click", function(){
       inputElem.value = "";
     }
 });
+
+document.addEventListener('keydown', function( event ) {
+  if ( event.keyCode === 17 ) {
+    isCtrlPressed = true;
+  }
+});
+
+document.addEventListener('keyup', function( event ) {
+  if(event.keyCode === 17){
+    isCtrlPressed = false;
+    }
+});
+
+deleteBtn.addEventListener('click', deleteSelectedLi);
+
+function deleteSelectedLi(){
+  selectedLi.forEach( function( li ){
+    ulElem.removeChild( li );
+  });
+}
