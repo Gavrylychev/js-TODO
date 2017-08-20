@@ -8,18 +8,26 @@ document.body.appendChild(addButton);
 var ulElem = document.createElement("ul");
 document.body.appendChild(ulElem);
 var inputTextValue = "";
+var deleteBtn = document.getElementById('deleteBtn');
 
-function giveColorLi(){
-  var li = document.querySelectorAll("li");
-  for(var i = 0; i < li.length; i++){
-    li[i].addEventListener("click", function(){
-      alert("click");
-      // this.classList.toggle("coloredLi");
+deleteBtn.addEventListener('click', deleteSelectedLi);
 
-    })
+function deleteSelectedLi(){
+  var arrLis = document.getElementsByTagName("li");
+  for(var i = 0; i < arrLis; i++){
+    console.log(arrLis);
+      ulElem.removeChild('coloredLi');
+    //   if(event.keyCode === 46){
+    // }
   }
 }
-giveColorLi();
+
+ulElem.addEventListener('click', selectLiWithCtrl);
+
+function selectLiWithCtrl(){
+
+}
+
 function createLi(arrStr){
   for(var i = 0; i < arrStr.length; i++){
     var liElem = document.createElement("li");
@@ -28,6 +36,23 @@ function createLi(arrStr){
   }
 }
 createLi(["first", "second", "third"]);
+
+ulElem.addEventListener("click", colorLi);
+
+function colorLi(){
+  if (event.target.tagName !== 'LI') return;
+  var arrLi = document.querySelectorAll('li');
+  if(event.target.classList.contains("coloredLi")){
+    event.target.classList.remove("coloredLi");
+  }else{
+    for(var i = 0; i < arrLi.length; i++){
+      arrLi[i].classList.remove("coloredLi");
+  }
+  event.target.classList.toggle("coloredLi");
+  }
+}
+
+
 
 inputElem.addEventListener("keypress", function(event){
   inputTextValue = event.target.value;
