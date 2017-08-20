@@ -16,7 +16,7 @@ function deleteSelectedLi(){
   var arrLis = document.querySelectorAll("li");
   for(var i = 0; i < arrLis.length; i++){
     // arrLis[i].classList.remove("coloredLi");
-      arrLis[i].removeChild('coloredLi');
+      ulElem.remove(arrLis[i].classList.contains('coloredLi'));
     //   if(event.keyCode === 46){
     // }
   }
